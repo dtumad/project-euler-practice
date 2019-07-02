@@ -1,0 +1,7 @@
+[package]
+name = "project-euler-practice"
+version = "0.1.0"
+authors = ["Devon Tuma <tumax040@umn.edu>"]
+edition = "2018"
+
+[dependencies]
