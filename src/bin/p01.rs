@@ -13,10 +13,25 @@ fn get_arg <T: FromStr> (arg_num: usize) -> T {
 }
 
 // Finds the sum of multiples of 3 or 5 less than the input value
-fn main() -> () {
-    let max: i32 = get_arg(1);
+fn sum_multiples(max: i32) -> i32 {
     let result: i32 = (0..max)
         .filter(|x| (x % 3 == 0) || (x % 5 == 0))
         .sum();
+    return result;
+}
+
+fn main() -> () {
+    let max: i32 = get_arg(1);
+    let result = sum_multiples(max);
     println!("Sum was {}", result);
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn sum_multiples_test() {
+        use super::sum_multiples;
+        assert_eq!(23, sum_multiples(10));
+        assert_eq!(78, sum_multiples(20));
+    }
 }

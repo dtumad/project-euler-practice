@@ -19,3 +19,12 @@ fn get_arg <T: FromStr> (arg_num: usize) -> T {
 fn main() -> () {
     println!("I'm just a template");
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn template_test() {
+        assert_eq!(true, true);
+        assert_eq!(false, false);
+    }
+}

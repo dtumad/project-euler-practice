@@ -16,9 +16,7 @@ fn get_arg <T: FromStr> (arg_num: usize) -> T {
 }
 
 // Finds the sum of even fibonacci numbers less than the input value
-fn main() -> () {
-    let max = get_arg::<i64>(1);
-
+fn sum_fibs(max: i64) -> i64 {
     let mut current = (1,1);
     let result: i64 = std::iter::from_fn(move || {
         if current.1 <= max {
@@ -31,6 +29,22 @@ fn main() -> () {
     }).map(|x| x.0)
     .filter(|x| x % 2 == 0)
     .sum();
+    return result;
+}
 
+fn main() -> () {
+    let max = get_arg::<i64>(1);
+    let result = sum_fibs(max);
     println!("{}", result);
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn fib_sum_test() {
+        use super::sum_fibs;
+        assert_eq!(44, sum_fibs(100));
+        assert_eq!(10, sum_fibs(30));
+        assert_eq!(44, sum_fibs(35));
+    }
 }
