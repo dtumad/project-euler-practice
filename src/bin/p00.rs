@@ -17,7 +17,8 @@ fn get_arg <T: FromStr> (arg_num: usize) -> T {
 
 // Doesn't do much
 fn main() -> () {
-    println!("I'm just a template");
+    let result = "I'm just a template";
+    println!("{}", result);
 }
 
 #[cfg(test)]
