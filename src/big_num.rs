@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct BigNum {
     // low order slots are low order digits. sum (digits[n] * 10^n)
     digits: Vec<u8>
@@ -12,6 +12,7 @@ pub struct BigNum {
 /// ```
 /// use project_euler_practice::big_num::BigNum;
 /// assert_eq!(BigNum::from_string("0123456").to_string(), "123456");
+/// assert_eq!(BigNum::from_string("000000").to_string(), "0");
 /// ```
 impl BigNum {
     pub fn from_string(number: &str) -> Self {
@@ -33,7 +34,7 @@ impl BigNum {
     }
 
     fn clear_lead_zeros(&mut self) -> () {
-        while self.digits[self.digits.len() - 1] == 0 {
+        while self.digits.len() > 1 && self.digits[self.digits.len() - 1] == 0 {
             self.digits.pop();
         }
     }
