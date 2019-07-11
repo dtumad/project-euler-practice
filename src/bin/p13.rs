@@ -1,6 +1,6 @@
+use project_euler_practice::big_num::BigNum;
 #[allow(unused_imports)]
 use project_euler_practice::util::get_arg;
-use project_euler_practice::big_num::BigNum;
 
 fn get_inputs() -> Vec<BigNum> {
     "37107287533902102798797998220837590246510135740250
@@ -103,9 +103,9 @@ fn get_inputs() -> Vec<BigNum> {
     72107838435069186155435662884062257473692284509516
     20849603980134001723930671666823555245252804609722
     53503534226472524250874054075591789781264330331690"
-    .lines()
-    .map(|s| BigNum::from_string(s.trim()))
-    .collect()
+        .lines()
+        .map(|s| BigNum::from_string(s.trim()))
+        .collect()
 }
 
 // Sums the first n of the given numbers, n being the input
@@ -117,4 +117,3 @@ fn main() -> () {
     }
     println!("{}", sum);
 }
-

@@ -4,15 +4,15 @@ use std::env;
 use std::str::FromStr;
 
 #[allow(dead_code)]
-fn get_arg <T: FromStr> (arg_num: usize) -> T {
+fn get_arg<T: FromStr>(arg_num: usize) -> T {
     let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         panic!("Not enough arguments, expected at least {}", arg_num);
     }
     return match (&args[arg_num]).parse() {
         Ok(parsed_value) => parsed_value,
-        Err(_) => panic!("Could not parse argument: {}", &args[arg_num])
-    }
+        Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
+    };
 }
 
 // gets all primes less strictly less than the input
@@ -44,7 +44,6 @@ fn sum_primes(primes: Vec<bool>) -> u64 {
     return sum;
 }
 
-
 // Sums all the primes below the given input
 fn main() -> () {
     let result = sum_primes(primes_below(get_arg(1)));
@@ -56,8 +55,10 @@ mod tests {
     #[test]
     fn primes_below_test() {
         use super::primes_below;
-        assert_eq!(primes_below(10), vec![false, false, true, true, false, 
-                                          true, false, true, false, false]);
+        assert_eq!(
+            primes_below(10),
+            vec![false, false, true, true, false, true, false, true, false, false]
+        );
         assert_eq!(primes_below(2), vec![false, false]);
     }
     #[test]

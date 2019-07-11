@@ -1,4 +1,3 @@
-
 /// returns if the given number is prime
 ///
 /// This version doesn't cache primes, so is inefficient over multiple calls
@@ -66,5 +65,3 @@ pub fn get_num_divisors(mut n: u64) -> u64 {
     }
     return result;
 }
-
-

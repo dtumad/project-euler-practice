@@ -4,20 +4,19 @@ use std::env;
 use std::str::FromStr;
 
 #[allow(dead_code)]
-fn get_arg <T: FromStr> (arg_num: usize) -> T {
+fn get_arg<T: FromStr>(arg_num: usize) -> T {
     let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         panic!("Not enough arguments, expected at least {}", arg_num);
     }
     return match (&args[arg_num]).parse() {
         Ok(parsed_value) => parsed_value,
-        Err(_) => panic!("Could not parse argument: {}", &args[arg_num])
-    }
+        Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
+    };
 }
 
 fn get_search_string() -> Vec<Vec<u64>> {
-    return
-    "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
+    return "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
     49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
     81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65
     52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91
@@ -37,17 +36,18 @@ fn get_search_string() -> Vec<Vec<u64>> {
     20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
     20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
     01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"
-    .trim()
-    .lines()
-    .map(|line| {
-        line.split_whitespace()
-            .filter_map(|s| s.parse().ok())
-            .collect()
-    }).collect();  
+        .trim()
+        .lines()
+        .map(|line| {
+            line.split_whitespace()
+                .filter_map(|s| s.parse().ok())
+                .collect()
+        })
+        .collect();
 }
 
 // finds all lines in the given matrix
-fn get_lines(grid: &Vec<Vec<u64>>) -> Vec<Vec<(usize,usize)>> {
+fn get_lines(grid: &Vec<Vec<u64>>) -> Vec<Vec<(usize, usize)>> {
     let mut lines: Vec<Vec<_>> = Vec::new();
     let h = grid.len();
     let w = grid[0].len();
@@ -78,16 +78,18 @@ fn get_lines(grid: &Vec<Vec<u64>>) -> Vec<Vec<(usize,usize)>> {
     lines
 }
 
-fn get_max_prod(prod_len: usize, lines: Vec<Vec<(usize,usize)>>, grid: Vec<Vec<u64>>) -> u64 {
-    return lines.iter()
+fn get_max_prod(prod_len: usize, lines: Vec<Vec<(usize, usize)>>, grid: Vec<Vec<u64>>) -> u64 {
+    return lines
+        .iter()
         .map(|cells| {
             cells
                 .windows(prod_len)
                 .map(|ns| ns.iter().map(|&(x, y)| grid[y][x]).product())
                 .max()
                 .unwrap_or(0)
-        }).max()
-        .unwrap()
+        })
+        .max()
+        .unwrap();
 }
 
 // Doesn't do much

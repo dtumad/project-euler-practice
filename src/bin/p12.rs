@@ -1,5 +1,5 @@
-use project_euler_practice::util::get_arg;
 use project_euler_practice::prime::get_num_divisors;
+use project_euler_practice::util::get_arg;
 
 // gets the first triangle number with at least the input number of divisors
 fn solve(desired_num_divisors: u64) -> u64 {
@@ -9,16 +9,16 @@ fn solve(desired_num_divisors: u64) -> u64 {
         triangle += next_jump;
         next_jump += 1;
         Some(triangle)
-    }).filter(|&n| get_num_divisors(n) > desired_num_divisors)
-        .nth(0)
-        .unwrap();
+    })
+    .filter(|&n| get_num_divisors(n) > desired_num_divisors)
+    .nth(0)
+    .unwrap();
 }
 
 fn main() -> () {
     let result = solve(get_arg(1));
     println!("{}", result);
 }
-
 
 #[cfg(test)]
 mod tests {

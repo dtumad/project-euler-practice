@@ -4,19 +4,19 @@ use std::env;
 use std::str::FromStr;
 
 #[allow(dead_code)]
-fn get_arg <T: FromStr> (arg_num: usize) -> T {
+fn get_arg<T: FromStr>(arg_num: usize) -> T {
     let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         panic!("Not enough arguments, expected at least {}", arg_num);
     }
     return match (&args[arg_num]).parse() {
         Ok(parsed_value) => parsed_value,
-        Err(_) => panic!("Could not parse argument: {}", &args[arg_num])
-    }
+        Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
+    };
 }
 
 fn get_nth_prime(n: usize) -> u64 {
-    let mut primes: Vec<u64> = vec![2,3,5,7,11,13];
+    let mut primes: Vec<u64> = vec![2, 3, 5, 7, 11, 13];
     let mut next: u64 = 14;
     while primes.len() < n {
         let mut next_is_prime = true;
@@ -33,7 +33,7 @@ fn get_nth_prime(n: usize) -> u64 {
 
         next = next + 1;
     }
-    return primes[n-1];
+    return primes[n - 1];
 }
 
 // Finds the nth prime number

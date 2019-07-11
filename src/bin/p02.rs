@@ -4,29 +4,29 @@ use std::env;
 use std::str::FromStr;
 
 #[allow(dead_code)]
-fn get_arg <T: FromStr> (arg_num: usize) -> T {
+fn get_arg<T: FromStr>(arg_num: usize) -> T {
     let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         panic!("Not enough arguments, expected at least {}", arg_num);
     }
     return match (&args[arg_num]).parse() {
         Ok(parsed_value) => parsed_value,
-        Err(_) => panic!("Could not parse argument: {}", &args[arg_num])
-    }
+        Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
+    };
 }
 
 // Finds the sum of even fibonacci numbers less than the input value
 fn sum_fibs(max: i64) -> i64 {
-    let mut current = (1,1);
+    let mut current = (1, 1);
     let result: i64 = std::iter::from_fn(move || {
         if current.1 <= max {
             current = (current.1, current.0 + current.1);
             Some(current)
-        }
-        else {
+        } else {
             None
         }
-    }).map(|x| x.0)
+    })
+    .map(|x| x.0)
     .filter(|x| x % 2 == 0)
     .sum();
     return result;

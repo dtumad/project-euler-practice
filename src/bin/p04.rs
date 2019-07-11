@@ -4,15 +4,15 @@ use std::env;
 use std::str::FromStr;
 
 #[allow(dead_code)]
-fn get_arg <T: FromStr> (arg_num: usize) -> T {
+fn get_arg<T: FromStr>(arg_num: usize) -> T {
     let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         panic!("Not enough arguments, expected at least {}", arg_num);
     }
     return match (&args[arg_num]).parse() {
         Ok(parsed_value) => parsed_value,
-        Err(_) => panic!("Could not parse argument: {}", &args[arg_num])
-    }
+        Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
+    };
 }
 
 // returns the nth digit from the 1s place, with 1s place being 0
@@ -31,8 +31,8 @@ fn get_num_digits(mut number: u32) -> u32 {
 
 fn is_palindrome(number: u32) -> bool {
     let num_digits = get_num_digits(number);
-    for i in 0..(num_digits/2) {
-        if get_nth_digit(number, i) != get_nth_digit(number, num_digits-i-1) {
+    for i in 0..(num_digits / 2) {
+        if get_nth_digit(number, i) != get_nth_digit(number, num_digits - i - 1) {
             return false;
         }
     }
@@ -42,13 +42,13 @@ fn is_palindrome(number: u32) -> bool {
 // returns true if the number is a product of two n digit numbers
 fn is_product_of_two_ndigits(number: u32, n: u32) -> bool {
     // these are the low and high values of n digit numbers (e.g. 10-99)
-    let lowest_ndigit = 10_u32.pow(n-1);
+    let lowest_ndigit = 10_u32.pow(n - 1);
     let highest_ndigit = (lowest_ndigit * 10) - 1;
 
     // these are the lowest divisors that could be valid
     let mut lower_bound = number / highest_ndigit;
     let mut upper_bound = number / lowest_ndigit;
-    
+
     // reset if the bounds have been moved too far
     if lower_bound < lowest_ndigit {
         lower_bound = lowest_ndigit;
@@ -94,8 +94,8 @@ mod tests {
         //assert_eq!(false, f(101, 2));
         for i in 100..120 {
             for j in 900..1000 {
-                assert_eq!(true, f(i*j, 3));
-                assert_eq!(false, f(i*j, 2));
+                assert_eq!(true, f(i * j, 3));
+                assert_eq!(false, f(i * j, 2));
             }
         }
     }

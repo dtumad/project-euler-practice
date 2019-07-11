@@ -1,7 +1,7 @@
 #[derive(Debug, PartialEq, Clone)]
 pub struct BigNum {
     // low order slots are low order digits. sum (digits[n] * 10^n)
-    digits: Vec<u8>
+    digits: Vec<u8>,
 }
 
 /// Represents a large number that couldn't fit in for example a i128
@@ -17,9 +17,11 @@ pub struct BigNum {
 impl BigNum {
     pub fn from_string(number: &str) -> Self {
         let mut result = Self {
-            digits: number.chars().rev()
+            digits: number
+                .chars()
+                .rev()
                 .map(|c| c.to_digit(10).unwrap() as u8)
-                .collect()
+                .collect(),
         };
         result.clear_lead_zeros();
         return result;
@@ -78,25 +80,12 @@ impl std::ops::Add for BigNum {
             new_digits[j] += d;
             // we can assume we only carry a one, never any more
             if new_digits[j] > 9 {
-                new_digits[j+1] += 1;
+                new_digits[j + 1] += 1;
                 new_digits[j] -= 10;
             }
         }
-        let mut result = Self {
-            digits: new_digits
-        };
+        let mut result = Self { digits: new_digits };
         result.clear_lead_zeros();
         return result;
     }
-}
-
-#[cfg(tests)]
-mod tests {
-    #[test]
-    use super::BigNum;
-    fn conversion_test() {
-       }
-    #[test]
-    fn add_test() {
-          }
 }

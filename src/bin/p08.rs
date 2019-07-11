@@ -4,20 +4,19 @@ use std::env;
 use std::str::FromStr;
 
 #[allow(dead_code)]
-fn get_arg <T: FromStr> (arg_num: usize) -> T {
+fn get_arg<T: FromStr>(arg_num: usize) -> T {
     let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         panic!("Not enough arguments, expected at least {}", arg_num);
     }
     return match (&args[arg_num]).parse() {
         Ok(parsed_value) => parsed_value,
-        Err(_) => panic!("Could not parse argument: {}", &args[arg_num])
-    }
+        Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
+    };
 }
 
 fn get_search_string() -> Vec<u64> {
-    return
-    "73167176531330624919225119674426574742355349194934
+    return "73167176531330624919225119674426574742355349194934
     96983520312774506326239578318016984801869478851843
     85861560789112949495459501737958331952853208805511
     12540698747158523863050715693290963295227443043557
@@ -37,10 +36,10 @@ fn get_search_string() -> Vec<u64> {
     84580156166097919133875499200524063689912560717606
     05886116467109405077541002256983155200055935729725
     71636269561882670428252483600823257530420752963450"
-    .chars()
-    .filter(|c| c.is_digit(10))
-    .map(|c| c.to_digit(10).unwrap() as u64)
-    .collect();
+        .chars()
+        .filter(|c| c.is_digit(10))
+        .map(|c| c.to_digit(10).unwrap() as u64)
+        .collect();
 }
 
 // finds the max product of n consecutive numbers in the search string
@@ -54,8 +53,7 @@ fn maximize_product(l: usize, search_string: Vec<u64>) -> u64 {
     for i in window_back..=window_front {
         if search_string[i] != 0 {
             current_product *= search_string[i];
-        }
-        else {
+        } else {
             num_zeros_in_prod += 1;
         }
     }
@@ -63,24 +61,21 @@ fn maximize_product(l: usize, search_string: Vec<u64>) -> u64 {
     let mut max_product;
     if num_zeros_in_prod > 0 {
         max_product = 0;
-    }
-    else {
+    } else {
         max_product = current_product;
     }
 
     while window_front < search_string.len() - 1 {
         if search_string[window_back] != 0 {
             current_product /= search_string[window_back];
-        }
-        else {
+        } else {
             num_zeros_in_prod -= 1;
         }
         window_back += 1;
         window_front += 1;
         if search_string[window_front] != 0 {
             current_product *= search_string[window_front];
-        }
-        else {
+        } else {
             num_zeros_in_prod += 1;
         }
         if current_product > max_product && num_zeros_in_prod == 0 {
@@ -101,9 +96,15 @@ mod tests {
     #[test]
     fn prod_test() {
         use super::maximize_product;
-        assert_eq!(maximize_product(1, vec![1,2,3,4,5,6,7,8,0,0,0,9]), 9);
-        assert_eq!(maximize_product(4, vec![0,9,8,9,9,0]), 5832);
-        assert_eq!(maximize_product(2, vec![1,2,4,3,2,6,7,3,7,8,9,9,1,0]), 81);
-        assert_eq!(maximize_product(3, vec![10,0,10,0,10]), 0);
+        assert_eq!(
+            maximize_product(1, vec![1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 9]),
+            9
+        );
+        assert_eq!(maximize_product(4, vec![0, 9, 8, 9, 9, 0]), 5832);
+        assert_eq!(
+            maximize_product(2, vec![1, 2, 4, 3, 2, 6, 7, 3, 7, 8, 9, 9, 1, 0]),
+            81
+        );
+        assert_eq!(maximize_product(3, vec![10, 0, 10, 0, 10]), 0);
     }
 }
