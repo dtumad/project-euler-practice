@@ -13,7 +13,7 @@ pub struct BigNum {
 /// use project_euler_practice::big_num::BigNum;
 /// assert_eq!(BigNum::from_string("0123456").to_string(), "123456");
 /// assert_eq!(BigNum::from_string("000000").to_string(), "0");
-/// 
+///
 /// let my_bignum = BigNum::from_vec(vec![19,200,0,0,0,0,0]);
 /// assert_eq!(my_bignum.to_string(), "2019");
 /// ```
@@ -29,7 +29,7 @@ impl BigNum {
         result.clear_lead_zeros();
         return result;
     }
-    
+
     pub fn from_vec(number: Vec<u16>) -> Self {
         let mut result = Self { digits: number };
         result.carry();
@@ -55,7 +55,7 @@ impl BigNum {
                 while i + 1 >= self.len() {
                     self.digits.push(0);
                 }
-                self.digits[i+1] += d / 10;
+                self.digits[i + 1] += d / 10;
                 self.digits[i] = d % 10;
             }
         }
@@ -130,7 +130,7 @@ impl std::ops::Add for BigNum {
 /// ```
 impl std::ops::Mul for BigNum {
     type Output = Self;
- 
+
     fn mul(self, other: Self) -> Self::Output {
         let new_size = self.len() + other.len() + 1;
         let mut new_digits = vec![0; new_size];
@@ -144,7 +144,3 @@ impl std::ops::Mul for BigNum {
         return result;
     }
 }
-
-
-
-

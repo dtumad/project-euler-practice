@@ -23,7 +23,7 @@ fn main() -> () {
 mod tests {
     #[test]
     fn digit_sum_test() {
-        assert_eq!(super::digit_sum(2,15), 26);
-        assert_eq!(super::digit_sum(2,4), 7);
+        assert_eq!(super::digit_sum(2, 15), 26);
+        assert_eq!(super::digit_sum(2, 4), 7);
     }
 }
