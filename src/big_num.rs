@@ -1,7 +1,7 @@
 #[derive(Debug, PartialEq, Clone)]
 pub struct BigNum {
     // low order slots are low order digits. sum (digits[n] * 10^n)
-    digits: Vec<u8>,
+    digits: Vec<u16>,
 }
 
 /// Represents a large number that couldn't fit in for example a i128
@@ -13,6 +13,9 @@ pub struct BigNum {
 /// use project_euler_practice::big_num::BigNum;
 /// assert_eq!(BigNum::from_string("0123456").to_string(), "123456");
 /// assert_eq!(BigNum::from_string("000000").to_string(), "0");
+/// 
+/// let my_bignum = BigNum::from_vec(vec![19,200,0,0,0,0,0]);
+/// assert_eq!(my_bignum.to_string(), "2019");
 /// ```
 impl BigNum {
     pub fn from_string(number: &str) -> Self {
@@ -20,10 +23,16 @@ impl BigNum {
             digits: number
                 .chars()
                 .rev()
-                .map(|c| c.to_digit(10).unwrap() as u8)
+                .map(|c| c.to_digit(10).unwrap() as u16)
                 .collect(),
         };
         result.clear_lead_zeros();
+        return result;
+    }
+    
+    pub fn from_vec(number: Vec<u16>) -> Self {
+        let mut result = Self { digits: number };
+        result.carry();
         return result;
     }
 
@@ -33,6 +42,24 @@ impl BigNum {
             result.push_str(&d.to_string());
         }
         return result;
+    }
+
+    pub fn digits(&self) -> Vec<u16> {
+        self.digits.clone()
+    }
+
+    fn carry(&mut self) -> () {
+        for i in 0..self.len() {
+            let d = self.digits[i];
+            if d > 9 {
+                while i + 1 >= self.len() {
+                    self.digits.push(0);
+                }
+                self.digits[i+1] += d / 10;
+                self.digits[i] = d % 10;
+            }
+        }
+        self.clear_lead_zeros();
     }
 
     fn clear_lead_zeros(&mut self) -> () {
@@ -56,7 +83,7 @@ impl fmt::Display for BigNum {
     }
 }
 
-/// Adition operations will never overflow
+/// Addition operations will never overflow
 ///
 /// ```
 /// use project_euler_practice::big_num::BigNum;
@@ -89,3 +116,35 @@ impl std::ops::Add for BigNum {
         return result;
     }
 }
+
+/// Multiplication operations will never overflow
+///
+/// ```
+/// use project_euler_practice::big_num::BigNum;
+/// let a = BigNum::from_string("123");
+/// let b = BigNum::from_string("456");
+/// let d = BigNum::from_string("456");
+/// let c = BigNum::from_string("789");
+/// assert_eq!((a*b).to_string(), "56088");
+/// assert_eq!((d*c).to_string(), "359784");
+/// ```
+impl std::ops::Mul for BigNum {
+    type Output = Self;
+ 
+    fn mul(self, other: Self) -> Self::Output {
+        let new_size = self.len() + other.len() + 1;
+        let mut new_digits = vec![0; new_size];
+        for (i, &d1) in self.digits.iter().enumerate() {
+            for (j, &d2) in other.digits.iter().enumerate() {
+                new_digits[i + j] += d1 * d2;
+            }
+        }
+        let mut result = Self { digits: new_digits };
+        result.carry();
+        return result;
+    }
+}
+
+
+
+
