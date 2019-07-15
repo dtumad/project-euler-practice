@@ -16,7 +16,7 @@ use std::fs;
 
 /// Gets the specified file as a string
 ///
-/// ``` 
+/// ```
 /// use project_euler_practice::util::read_input;
 /// assert_eq!(read_input("test"), "Hello World\n")
 /// ```
