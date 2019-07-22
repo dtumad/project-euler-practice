@@ -1,5 +1,5 @@
 #[allow(unused_imports)]
-use project_euler_practice::util::get_arg;
+use project_euler_practice::util::{get_arg, get_arg_else, read_input};
 
 fn main() -> () {
     let result: u64 = get_arg(1);

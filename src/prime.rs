@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 /// returns if the given number is prime
 ///
 /// This version doesn't cache primes, so is inefficient over multiple calls
@@ -29,8 +31,8 @@ pub fn is_prime(n: u64) -> bool {
 /// assert_eq!(prime_factorize(6), vec![0,0,1,1,0,0,0]);
 /// assert_eq!(prime_factorize(5), vec![0,0,0,0,0,1]);
 /// ```
-pub fn prime_factorize(n: u64) -> Vec<u64> {
-    let mut prime_factorization: Vec<u64> = vec![0; n as usize + 1];
+pub fn prime_factorize(n: u64) -> Vec<u8> {
+    let mut prime_factorization: Vec<u8> = vec![0; n as usize + 1];
     let mut d = 2;
     let mut m = n as usize;
     while m > 1 {
@@ -43,7 +45,33 @@ pub fn prime_factorize(n: u64) -> Vec<u64> {
     return prime_factorization;
 }
 
+/// gets a hash set containing all the divisors about n
+/// doesn't guaruntee anything about the ordering
+///
+/// ```
+/// use project_euler_practice::prime::get_divisors as f;
+/// let divs = f(630);
+/// assert_eq!(divs.len(), 24);
+/// for i in 1..=630 {
+///     if 630 % i == 0 {
+///         assert!(divs.contains(&i));
+///     }
+/// }
+/// ```
+pub fn get_divisors(n: u64) -> HashSet<u64> {
+    let mut divisors = HashSet::with_capacity(get_num_divisors(n) as usize);
+    let max = (n as f64).sqrt() as u64;
+    for i in 1..=max {
+        if n % i == 0 {
+            divisors.insert(i);
+            divisors.insert(n / i);
+        }
+    }
+    return divisors;
+}
+
 /// gets the number of divisors of the given integer
+/// more efficient than counting the result of get_divisors
 ///
 /// ```
 /// use project_euler_practice::prime::get_num_divisors as f;
