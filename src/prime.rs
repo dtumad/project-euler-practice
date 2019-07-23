@@ -51,8 +51,8 @@ pub fn prime_factorize(n: u64) -> Vec<u8> {
 /// ```
 /// use project_euler_practice::prime::get_divisors as f;
 /// let divs = f(630);
-/// assert_eq!(divs.len(), 24);
-/// for i in 1..=630 {
+/// assert_eq!(divs.len(), 23);
+/// for i in 1..630 {
 ///     if 630 % i == 0 {
 ///         assert!(divs.contains(&i));
 ///     }
@@ -60,8 +60,9 @@ pub fn prime_factorize(n: u64) -> Vec<u8> {
 /// ```
 pub fn get_divisors(n: u64) -> HashSet<u64> {
     let mut divisors = HashSet::with_capacity(get_num_divisors(n) as usize);
+    divisors.insert(1);
     let max = (n as f64).sqrt() as u64;
-    for i in 1..=max {
+    for i in 2..=max {
         if n % i == 0 {
             divisors.insert(i);
             divisors.insert(n / i);
