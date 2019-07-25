@@ -3,24 +3,21 @@ use project_euler_practice::util::{get_arg, get_arg_else, read_input};
 
 fn get_input(file: &str) -> Vec<String> {
     let input = read_input(file);
-    input.split(',')
-        .map(|s| s.trim()
-             .chars()
-             .filter(|&c| c != '"')
-             .collect())
+    input
+        .split(',')
+        .map(|s| s.trim().chars().filter(|&c| c != '"').collect())
         .collect()
 }
 
 fn score_word(word: &str) -> u64 {
-    word.chars()
-        .map(|c| (c as u64) - ('A' as u64) + 1)
-        .sum()
+    word.chars().map(|c| (c as u64) - ('A' as u64) + 1).sum()
 }
 
 fn solve(file: &str) -> u64 {
     let mut input = get_input(file);
     input.sort_unstable();
-    input.iter()
+    input
+        .iter()
         .enumerate()
         .map(|(i, s)| (i as u64 + 1) * score_word(s))
         .sum()

@@ -7,16 +7,11 @@ use num_bigint::{BigUint, ToBigUint};
 
 // returns n! as a BigUint
 fn big_factorial(n: u64) -> BigUint {
-    (1..=n)
-        .map(|m| m.to_biguint().unwrap())
-        .product()
+    (1..=n).map(|m| m.to_biguint().unwrap()).product()
 }
 
 fn sum_digits(n: BigUint) -> u32 {
-    n.to_string()
-        .chars()
-        .map(|c| c.to_digit(10).unwrap())
-        .sum()
+    n.to_string().chars().map(|c| c.to_digit(10).unwrap()).sum()
 }
 
 fn main() -> () {

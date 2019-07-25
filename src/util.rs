@@ -22,7 +22,7 @@ pub fn get_arg<T: FromStr>(arg_num: usize) -> T {
 /// assert_eq!(get_arg_else(5, 123_u64), 123_u64);
 /// ```
 pub fn get_arg_else<T: FromStr>(arg_num: usize, default: T) -> T {
-   let args: Vec<String> = env::args().collect();
+    let args: Vec<String> = env::args().collect();
     if args.len() <= arg_num {
         return default;
     }
@@ -30,7 +30,6 @@ pub fn get_arg_else<T: FromStr>(arg_num: usize, default: T) -> T {
         Ok(parsed_value) => parsed_value,
         Err(_) => panic!("Could not parse argument: {}", &args[arg_num]),
     };
-
 }
 
 use std::fs;

@@ -30,18 +30,30 @@ impl DivisorCache {
     }
 }
 
-fn is_amicable(dc: &DivisorCache, n: u64) -> bool {
-    let div_n = dc.get(n);
-    (div_n != n) & (dc.get(div_n) == n)
+fn is_abundant(dc: &DivisorCache, n: u64) -> bool {
+    n < dc.get(n)
 }
 
-fn get_amicable_sum(max: u64) -> u64 {
+// whether n is the sum of two abundant numbers
+fn is_abundant_sum(dc: &DivisorCache, n: u64) -> bool {
+    if n < 24 {
+        return false;
+    }
+    for i in 12..(n - 11) {
+        if is_abundant(dc, i) & is_abundant(dc, n - i) {
+            return true;
+        }
+    }
+    return false;
+}
+
+fn get_non_abundant_sum_sum(max: u64) -> u64 {
     let dc = DivisorCache::init(max);
-    return (1..=max).filter(|&n| is_amicable(&dc, n)).sum();
+    return (1..=max).filter(|&n| !is_abundant_sum(&dc, n)).sum();
 }
 
 fn main() -> () {
-    let result: u64 = get_amicable_sum(get_arg_else(1, 10000));
+    let result: u64 = get_non_abundant_sum_sum(get_arg_else(1, 28125));
     println!("{}", result);
 }
 
@@ -57,12 +69,23 @@ mod tests {
         assert_eq!(dc.get(10), 8);
     }
     #[test]
-    fn is_amicable_test() {
+    fn is_abundant_test() {
         let dc = DivisorCache::init(1000);
-        assert!(is_amicable(&dc, 220));
-        assert!(is_amicable(&dc, 284));
-        assert_eq!(is_amicable(&dc, 1), false);
-        assert_eq!(is_amicable(&dc, 6), false);
-        assert_eq!(is_amicable(&dc, 10), false);
+        assert!(is_abundant(&dc, 12));
+        assert!(is_abundant(&dc, 24));
+        assert!(is_abundant(&dc, 60));
+        assert!(!is_abundant(&dc, 28));
+        for i in 0..12 {
+            assert!(!is_abundant(&dc, i));
+        }
+    }
+    #[test]
+    fn is_abundant_sum_test() {
+        let dc = DivisorCache::init(1000);
+        assert!(is_abundant_sum(&dc, 24));
+        assert!(is_abundant_sum(&dc, 84));
+        for i in 0..24 {
+            assert!(!is_abundant_sum(&dc, i));
+        }
     }
 }
