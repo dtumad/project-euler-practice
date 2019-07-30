@@ -31,13 +31,12 @@ impl Permutation {
         // check bounds on m: 0 < m < n!
         //assert!((m > 0) & (m  <= ((1..=(n+1)).product())));
         if n == 0 {
-            Permutation{perm: vec![0]}
-        }
-        else {
+            Permutation { perm: vec![0] }
+        } else {
             let prod = fac(n);
             let prefix = m / prod;
             let suffix = m % prod;
-            Self::get_permutation(n-1, suffix).prepend_with(prefix as u8)
+            Self::get_permutation(n - 1, suffix).prepend_with(prefix as u8)
         }
     }
 
@@ -45,7 +44,7 @@ impl Permutation {
     #[allow(dead_code)]
     fn get_permutations(n: u8) -> Vec<Permutation> {
         if n == 0 {
-            let zero_perm = Permutation{perm: vec![0]};
+            let zero_perm = Permutation { perm: vec![0] };
             return vec![zero_perm];
         } else {
             let sub_perms = Self::get_permutations(n - 1);
@@ -53,9 +52,11 @@ impl Permutation {
             let mut result = Vec::with_capacity(perm_count * 2);
             for prefix in 0..=n {
                 result.extend(
-                    sub_perms.iter()
-                    .map(|permutation| permutation.prepend_with(prefix))
-                    .collect::<Vec<Permutation>>());
+                    sub_perms
+                        .iter()
+                        .map(|permutation| permutation.prepend_with(prefix))
+                        .collect::<Vec<Permutation>>(),
+                );
             }
             return result;
         }
