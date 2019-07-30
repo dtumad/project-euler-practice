@@ -1,18 +1,105 @@
 use std::collections::HashSet;
 
+#[derive(Debug, Clone)]
+pub struct PrimeTester {
+    cache: Vec<bool>
+}
+
+impl PrimeTester {
+    // adds in any missing falses in the cahce. Won't restore improper false vals 
+    fn seive_cache(&mut self) -> () {
+        self.cache[0] = false;
+        self.cache[1] = false;
+        for i in 2..self.cache.len() {
+            if self.cache[i] {
+                let mut multiples = i + i;
+                while multiples < self.cache.len() {
+                    self.cache[multiples] = false;
+                    multiples += i;
+                }
+            }
+        }
+    }
+
+    // doubles the size of the cached seive
+    fn grow_cache(&mut self) -> () {
+        self.cache.extend(vec![true; self.cache.len()]);
+        self.seive_cache();
+    }
+
+    fn grow_cache_to(&mut self, n: u64) -> () {
+        while self.cache.len() <= n as usize {
+            self.grow_cache();
+        }
+    }
+
+    pub fn new() -> PrimeTester {
+        PrimeTester {
+            cache: vec![false, false, true, true, false, true]
+        }
+    }
+
+    pub fn init(mut n: usize) -> PrimeTester {
+        n = std::cmp::max(n, 5);
+        let mut pt = PrimeTester {
+            cache: vec![true; n + 1]
+        };
+        pt.seive_cache();
+        return pt;
+    }
+
+    /// returns if the given number is prime
+    ///
+    /// grows the cache up to n, so memory intensive for large n
+    ///
+    /// ```
+    /// use project_euler_practice::prime::PrimeTester;
+    /// let mut pt = PrimeTester::new();
+    /// assert_eq!(pt.is_prime(1), false);
+    /// assert_eq!(pt.is_prime(2), true);
+    /// assert_eq!(pt.is_prime(17), true);
+    /// assert_eq!(pt.is_prime(25), false);
+    /// ```
+    pub fn is_prime(&mut self, n: u64) -> bool {
+        self.grow_cache_to(n);
+        return self.cache[n as usize];
+    }
+
+    /// returns all prime numbers up to max, after growing the cache to max
+    ///
+    /// ```
+    /// use project_euler_practice::prime::PrimeTester;
+    /// let mut pt = PrimeTester::new();
+    /// let primes = pt.get_primes(100);
+    /// for i in 1..100 {
+    ///     assert_eq!(pt.is_prime(i), primes.contains(&i));
+    /// }
+    /// ```
+    pub fn get_primes(&mut self, max: u64) -> HashSet<u64> {
+        self.grow_cache_to(max);
+        return self.cache.iter()
+            .enumerate()
+            .filter(|(i, &b)| b && (*i <= max as usize))
+            .map(|(i, _)| i as u64)
+            .collect();
+    }
+} 
+
 /// returns if the given number is prime
 ///
 /// This version doesn't cache primes, so is inefficient over multiple calls
+/// it is however more effective with very large n since it doesn't cache
 ///
 /// ```
 /// use project_euler_practice::prime::is_prime;
+/// assert_eq!(is_prime(1), false);
 /// assert_eq!(is_prime(2), true);
 /// assert_eq!(is_prime(17), true);
 /// assert_eq!(is_prime(25), false);
 /// assert_eq!(is_prime(12512345122), false);
 /// ```
 pub fn is_prime(n: u64) -> bool {
-    if n % 2 == 0 || n % 3 == 0 {
+    if n == 1 || n % 2 == 0 || n % 3 == 0 {
         return n == 2 || n == 3;
     }
     let max = (((n as f64).sqrt()) as u64) + 1;
