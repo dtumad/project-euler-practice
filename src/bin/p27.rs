@@ -1,6 +1,6 @@
+use project_euler_practice::prime::PrimeTester;
 #[allow(unused_imports)]
 use project_euler_practice::util::{get_arg, get_arg_else, read_input};
-use project_euler_practice::prime::PrimeTester;
 
 // evaluates n^2 + an + b
 fn eval(n: i64, a: i64, b: i64) -> i64 {
@@ -28,7 +28,7 @@ fn solve(a_max: i64, b_max: i64) -> (i64, i64) {
             let s = get_streak(a, b, &mut pt);
             if s > max {
                 max = s;
-                max_source = (a,b);
+                max_source = (a, b);
             }
         }
     }
@@ -40,7 +40,7 @@ fn main() -> () {
     let b_max = get_arg_else(2, 1000);
     let result = solve(a_max, b_max);
     match result {
-        (a,b) => println!("a = {}, b = {}, a*b = {}", a, b, a * b)
+        (a, b) => println!("a = {}, b = {}, a*b = {}", a, b, a * b),
     }
 }
 

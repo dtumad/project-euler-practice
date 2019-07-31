@@ -2,11 +2,11 @@ use std::collections::HashSet;
 
 #[derive(Debug, Clone)]
 pub struct PrimeTester {
-    cache: Vec<bool>
+    cache: Vec<bool>,
 }
 
 impl PrimeTester {
-    // adds in any missing falses in the cahce. Won't restore improper false vals 
+    // adds in any missing falses in the cahce. Won't restore improper false vals
     fn seive_cache(&mut self) -> () {
         self.cache[0] = false;
         self.cache[1] = false;
@@ -35,14 +35,14 @@ impl PrimeTester {
 
     pub fn new() -> PrimeTester {
         PrimeTester {
-            cache: vec![false, false, true, true, false, true]
+            cache: vec![false, false, true, true, false, true],
         }
     }
 
     pub fn init(mut n: usize) -> PrimeTester {
         n = std::cmp::max(n, 5);
         let mut pt = PrimeTester {
-            cache: vec![true; n + 1]
+            cache: vec![true; n + 1],
         };
         pt.seive_cache();
         return pt;
@@ -77,13 +77,15 @@ impl PrimeTester {
     /// ```
     pub fn get_primes(&mut self, max: u64) -> HashSet<u64> {
         self.grow_cache_to(max);
-        return self.cache.iter()
+        return self
+            .cache
+            .iter()
             .enumerate()
             .filter(|(i, &b)| b && (*i <= max as usize))
             .map(|(i, _)| i as u64)
             .collect();
     }
-} 
+}
 
 /// returns if the given number is prime
 ///

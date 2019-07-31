@@ -19,11 +19,7 @@ fn get_digit_sum(n: u64, factorial_cache: &Vec<u64>) -> u64 {
 }
 
 fn get_factorial_cache() -> Vec<u64> {
-    (0..10_u64)
-        .map(|n| {
-            (1..=n).product()
-        })
-        .collect()
+    (0..10_u64).map(|n| (1..=n).product()).collect()
 }
 
 // returns the sum of all numbers whose digit sum is the original
@@ -51,8 +47,8 @@ mod tests {
         assert_eq!(pc[5], 120);
         assert_eq!(pc[9], 362880);
         assert_eq!(pc[8], 40320);
-        
-        use super::{get_digit, get_digit_sum, get_digit_count};
+
+        use super::{get_digit, get_digit_count, get_digit_sum};
         let n = 9876543210;
         for i in 0..10 {
             assert_eq!(get_digit(n, i), i as usize);

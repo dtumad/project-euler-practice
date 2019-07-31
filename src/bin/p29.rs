@@ -28,12 +28,12 @@ mod tests {
     #[test]
     fn solve_test() {
         use super::solve;
-        assert_eq!(solve(2,2), 1);
-        assert_eq!(solve(3,3), 4);
-        assert_eq!(solve(4,4), 8);
-        assert_eq!(solve(5,5), 15);
-        assert_eq!(solve(10,10), 69);
-        assert_eq!(solve(50,50), 2184);
-        assert_eq!(solve(75,75), 5098);
+        assert_eq!(solve(2, 2), 1);
+        assert_eq!(solve(3, 3), 4);
+        assert_eq!(solve(4, 4), 8);
+        assert_eq!(solve(5, 5), 15);
+        assert_eq!(solve(10, 10), 69);
+        assert_eq!(solve(50, 50), 2184);
+        assert_eq!(solve(75, 75), 5098);
     }
 }

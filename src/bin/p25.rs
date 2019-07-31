@@ -8,19 +8,21 @@ use num_traits::One;
 
 // gets the index of the first fibinocii number at least as large as min
 fn get_fib(min: BigUint) -> usize {
-    let mut trail: BigUint = One::one(); 
-    let mut lead: BigUint = One::one(); 
+    let mut trail: BigUint = One::one();
+    let mut lead: BigUint = One::one();
     std::iter::from_fn(move || {
         let old_trail = trail.clone();
         let new_lead = &trail + &lead;
         trail = lead.clone();
         lead = new_lead;
         Some(old_trail)
-    }).enumerate()
+    })
+    .enumerate()
     .filter(|(_, f)| f >= &min)
     .map(|(index, _)| index)
     .next()
-    .unwrap() + 1
+    .unwrap()
+        + 1
 }
 
 // gets the smallest biguint with specified number of digits
@@ -33,7 +35,6 @@ fn get_min(digits: u64) -> BigUint {
     }
     return result;
 }
-
 
 fn main() -> () {
     let result: usize = get_fib(get_min(get_arg(1)));

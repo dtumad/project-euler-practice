@@ -24,9 +24,7 @@ fn is_triangle_word(word: &str) -> bool {
 
 fn solve(file: &str) -> u64 {
     let input = get_input(file);
-    input.iter()
-        .filter(|s| is_triangle_word(s))
-        .count() as u64
+    input.iter().filter(|s| is_triangle_word(s)).count() as u64
 }
 
 fn main() -> () {

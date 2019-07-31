@@ -24,9 +24,7 @@ fn get_search_max(p: u32) -> u64 {
 }
 
 fn get_power_cache(p: u32) -> Vec<u64> {
-    (0..10_u64)
-        .map(|n| n.pow(p))
-        .collect()
+    (0..10_u64).map(|n| n.pow(p)).collect()
 }
 
 // returns the sum of all numbers whose digit sum is the original
@@ -51,8 +49,8 @@ mod tests {
         assert_eq!(pc[3], 9);
         assert_eq!(pc[9], 81);
         assert_eq!(pc[0], 0);
-        
-        use super::{get_digit, get_digit_sum, get_digit_count};
+
+        use super::{get_digit, get_digit_count, get_digit_sum};
         let n = 9876543210;
         for i in 0..10 {
             assert_eq!(get_digit(n, i), i as usize);

@@ -1,6 +1,6 @@
+use project_euler_practice::prime::count_distinct_prime_divisors as f;
 #[allow(unused_imports)]
 use project_euler_practice::util::{get_arg, get_arg_else, read_input};
-use project_euler_practice::prime::count_distinct_prime_divisors as f;
 
 // first number m such that m..m+n all have n distinct prime factors
 fn solve(n: u64) -> u64 {
@@ -12,11 +12,10 @@ fn solve(n: u64) -> u64 {
                 poss_sol = m;
             }
             streak += 1;
-        }
-        else {
+        } else {
             streak = 0;
         }
-        
+
         if streak == n {
             break;
         }
