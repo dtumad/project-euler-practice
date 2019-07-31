@@ -181,3 +181,30 @@ pub fn get_num_divisors(mut n: u64) -> u64 {
     }
     return result;
 }
+
+/// gets the number of distinct prime divisors of an integer
+///
+/// ```
+/// use project_euler_practice::prime::count_distinct_prime_divisors as f;
+/// assert_eq!(f(14), 2);
+/// assert_eq!(f(15), 2);
+/// assert_eq!(f(16), 1);
+/// assert_eq!(f(644), 3);
+/// assert_eq!(f(645), 3);
+/// assert_eq!(f(646), 3);
+/// ```
+pub fn count_distinct_prime_divisors(mut n: u64) -> u64 {
+    let mut d = 2;
+    let mut result = 0;
+    while n > 1 {
+        if n % d == 0 {
+            result += 1;
+            n /= d;
+            while n % d == 0 {
+                n /= d;
+            }
+        }
+        d += 1;
+    }
+    return result;
+}
