@@ -27,6 +27,7 @@ fn is_product_sum(n: &BigUint) -> Option<u64> {
     return None;
 }
 
+// we know that the result is between k and 2k (11....11 -> 11...12k)
 fn get_min_product_sum(mut k: usize) -> u64 {
     //let max: BigUint = pow(10.to_biguint().unwrap(), k);
     let mut min: BigUint = One::one();
@@ -39,7 +40,6 @@ fn get_min_product_sum(mut k: usize) -> u64 {
     let mut result = 900;
     for _ in 1..10000 {
         if let Some(new_result) = is_product_sum(&min) {
-            //println!("First result found is {}", min.to_string());
             result = std::cmp::min(result, new_result);
         }
         let one: BigUint = One::one();
@@ -58,20 +58,16 @@ fn add_implied(mut k: usize, mut n: u64, product_sums: &mut Vec<Option<u64>>) ->
     
 // IDEA: given that k -> n, we also have (k + n - 1) -> 2 * n
 // This could speed up a lot of the calculations
+// current solution still to slow, only gets to k = 1200 ish
 use std::collections::HashSet;
 fn solve(k_max: usize) -> u64 {
     let mut product_sums = vec![None; k_max + 1];
     for k in 2..=k_max {
         if let None = product_sums[k] {
-            //println!("iteration k = {} requires actual work", k);
             let n = get_min_product_sum(k);
             add_implied(k, n, &mut product_sums);
         }
-        else {
-            println!("iteration k = {} was free", k);
-        }
     }
-    //println!("{:?}", product_sums);
     return product_sums.iter()
         .filter(|opt| opt.is_some())
         .map(|opt| opt.unwrap())
