@@ -6,9 +6,10 @@ extern crate num_traits;
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::{One};
 
-// for 1234.. calculates 1 + 2 + 3 + 4 + ..
-fn sum_of_num(n: &BigUint) -> u64 {
-    n.to_radix_le(10)
+// for 1234.. extends with 1s to length k and calculates 1 + 2 + 3 + 4 + .. 
+fn sum_of_num(n: &BigUint, k: u64) -> u64 {
+    k - n.to_radix_le(10).len() + 
+        n.to_radix_le(10)
         .iter()
         .fold(0_u64, |acc, &d| acc + (d as u64))
 }
@@ -19,9 +20,9 @@ fn product_of_num(n: &BigUint) -> u64 {
         .fold(1_u64, |acc, &d| acc * (d as u64))
 }
 
-fn is_product_sum(n: &BigUint) -> Option<u64> {
+fn is_product_sum(n: &BigUint, k: u64) -> Option<u64> {
     let p = product_of_num(n);
-    if p == sum_of_num(n) {
+    if p == sum_of_num(n, k) {
         return Some(p);
     }
     return None;
@@ -30,16 +31,17 @@ fn is_product_sum(n: &BigUint) -> Option<u64> {
 // we know that the result is between k and 2k (11....11 -> 11...12k)
 fn get_min_product_sum(mut k: usize) -> u64 {
     //let max: BigUint = pow(10.to_biguint().unwrap(), k);
+    //let mut min: BigUint = One::one();
+    //while k > 1 {
+    //    let one: BigUint = One::one();
+    //    min *= 10.to_biguint().unwrap();
+    //    min += one;
+    //    k -= 1;
+    //}
     let mut min: BigUint = One::one();
-    while k > 1 {
-        let one: BigUint = One::one();
-        min *= 10.to_biguint().unwrap();
-        min += one;
-        k -= 1;
-    }
     let mut result = 900;
     for _ in 1..10000 {
-        if let Some(new_result) = is_product_sum(&min) {
+        if let Some(new_result) = is_product_sum(&min, k as u64) {
             result = std::cmp::min(result, new_result);
         }
         let one: BigUint = One::one();
