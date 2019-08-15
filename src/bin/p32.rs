@@ -7,19 +7,16 @@ fn is_pandigital(mut n: u64) -> bool {
     if n < 123456789 || n > 987654321 {
         return false;
     }
-    let mut digits: [bool; 10] = [false; 10];
-    digits[0] = true;
+    let mut digits = 0;
     while n > 0 {
-        let digit = (n % 10) as usize;
-        if digits[digit] {
+        let digit = n % 10;
+        if digit == 0 {
             return false;
         }
-        else {
-            digits[digit] = true;
-        }
+        digits |= 1 << (digit - 1);
         n /= 10;
     }
-    return true;
+    return digits == 0x1ff;
 }
 
 fn split_num(mut n: u64, mut break1: u64, mut break2: u64) -> [u64; 3] {
@@ -45,12 +42,12 @@ fn split_num(mut n: u64, mut break1: u64, mut break2: u64) -> [u64; 3] {
         digit *= 10;
         n /= 10;
     }
-    return result;
+    return result;    
 }
 
 fn get_splits(n: u64, set: &mut HashSet<u64>) -> () {
-    for break1 in 1..=7 {
-        for break2 in (break1 + 1)..=8 {
+    for break1 in 1..=4 {
+        for break2 in (break1 + 1)..=7 {
             let split = split_num(n, break1, break2);
             if split[0] * split[1] == split[2] {
                 set.insert(split[2]);
@@ -67,6 +64,8 @@ fn solve() -> u64 {
     return set.iter().sum();
 }
 
+// this approach splits and then checks rather than combine then check
+// would likely be faster the other way
 fn main() -> () {
     let result = solve();
     println!("{}", result);
