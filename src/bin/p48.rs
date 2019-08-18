@@ -19,9 +19,7 @@ fn self_power(num: u64) -> u64 {
 }
 
 fn solve(n: u64) -> u64 {
-    last_n_digits((1..=n)
-        .map(|m| self_power(m))
-        .sum(), 10)
+    last_n_digits((1..=n).map(|m| self_power(m)).sum(), 10)
 }
 
 fn main() -> () {

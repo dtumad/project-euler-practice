@@ -22,7 +22,7 @@ fn is_simple_cancel(n: u64, d: u64) -> bool {
 
 fn solve() -> u64 {
     let (mut a, mut b) = (10..100)
-        .flat_map(|n| ((n+1)..100).map(move |d| (n, d)))
+        .flat_map(|n| ((n + 1)..100).map(move |d| (n, d)))
         .filter(|&(n, d)| (n % 10 != 0) && (d % 10 != 0))
         .filter(|&(n, d)| is_simple_cancel(n, d))
         .fold((1, 1), |acc, (n, d)| (acc.0 * n, acc.1 * d));

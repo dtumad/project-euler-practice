@@ -35,7 +35,7 @@ fn main() -> () {
 mod tests {
     #[test]
     fn champernowne_test() {
-        use super::{len, champernowne as c};
+        use super::{champernowne as c, len};
         for i in 1..10 {
             assert_eq!(len(i), 1);
             assert_eq!(c(i), i);

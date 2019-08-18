@@ -65,16 +65,12 @@ fn count_letters(n: u64) -> usize {
     if n == 1000 {
         "onethousand".len()
     } else {
-        count_letters_to_ten(n % 100) 
-            + count_letters_in_hundred(n)
-            + count_and(n)
+        count_letters_to_ten(n % 100) + count_letters_in_hundred(n) + count_and(n)
     }
 }
 
 fn solve(n: u64) -> usize {
-    (1..=n)
-        .map(|m| count_letters(m))
-        .sum()
+    (1..=n).map(|m| count_letters(m)).sum()
 }
 
 fn main() -> () {

@@ -42,7 +42,7 @@ fn split_num(mut n: u64, mut break1: u64, mut break2: u64) -> [u64; 3] {
         digit *= 10;
         n /= 10;
     }
-    return result;    
+    return result;
 }
 
 fn get_splits(n: u64, set: &mut HashSet<u64>) -> () {

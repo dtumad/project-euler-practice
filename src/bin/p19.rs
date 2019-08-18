@@ -20,7 +20,7 @@ fn next_week_date(week_day: WeekDate) -> WeekDate {
         Thurs => Fri,
         Fri => Sat,
         Sat => Sun,
-        Sun => Mon
+        Sun => Mon,
     }
 }
 
@@ -73,8 +73,11 @@ fn days_in_month(month: Month, year: Year) -> u64 {
         Apr | Jun | Sep | Nov => 30,
         Jan | Mar | May | Jul | Aug | Oct | Dec => 31,
         Feb => {
-            if is_leap_year(year) {29}
-            else {28}
+            if is_leap_year(year) {
+                29
+            } else {
+                28
+            }
         }
     }
 }
@@ -85,12 +88,10 @@ fn iterate_date(date: Date) -> Date {
     if day == days_in_month(month, year) {
         if month == Month::Dec {
             (nwd, 1, Month::Jan, year + 1)
-        }
-        else {
+        } else {
             (nwd, 1, next_month(month), year)
         }
-    }
-    else {
+    } else {
         (nwd, day + 1, month, year)
     }
 }
@@ -99,10 +100,10 @@ fn solve() -> u64 {
     let mut d: Date = (WeekDate::Mon, 1, Month::Jan, 1900);
     std::iter::from_fn(move || {
         d = iterate_date(d);
-       // println!("next day: {:?}", d);
+        // println!("next day: {:?}", d);
         match d {
             (_, _, _, 2001) => None,
-            _ => Some(d)
+            _ => Some(d),
         }
     })
     .filter(|&(wd, d, _, y)| wd == WeekDate::Sun && d == 1 && y > 1900)
@@ -119,8 +120,8 @@ mod tests {
     #[test]
     fn iterate_date_test() {
         use super::iterate_date as id;
-        use super::WeekDate::*;
         use super::Month::*;
+        use super::WeekDate::*;
         assert_eq!(id((Sun, 31, Dec, 1998)), (Mon, 1, Jan, 1999));
         assert_eq!(id((Wed, 5, Mar, 1956)), (Thurs, 6, Mar, 1956));
         assert_eq!(id((Fri, 28, Feb, 1996)), (Sat, 29, Feb, 1996));
