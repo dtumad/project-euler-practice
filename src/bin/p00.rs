@@ -1,5 +1,7 @@
 #[allow(unused_imports)]
 use project_euler_practice::util::{get_arg, get_arg_else, read_input};
+#[allow(unused_imports)]
+use rayon::prelude::*;
 
 fn solve(n: u64) -> u64 {
     return n;

@@ -27,8 +27,8 @@ impl PrimeTester {
         self.seive_cache();
     }
 
-    fn grow_cache_to(&mut self, n: u64) -> () {
-        while self.cache.len() <= n as usize {
+    fn grow_cache_to(&mut self, n: usize) -> () {
+        while self.cache.len() <= n {
             self.grow_cache();
         }
     }
@@ -61,7 +61,7 @@ impl PrimeTester {
     /// assert_eq!(pt.is_prime(25), false);
     /// ```
     pub fn is_prime(&mut self, n: u64) -> bool {
-        self.grow_cache_to(n);
+        self.grow_cache_to(n as usize);
         return self.cache[n as usize];
     }
 
@@ -75,8 +75,8 @@ impl PrimeTester {
     ///     assert_eq!(pt.is_prime(i), primes.contains(&i));
     /// }
     /// ```
-    pub fn get_primes(&mut self, max: u64) -> HashSet<u64> {
-        self.grow_cache_to(max);
+    pub fn get_primes(&mut self, max: usize) -> HashSet<u64> {
+        self.grow_cache_to(max as usize);
         return self
             .cache
             .iter()
@@ -84,6 +84,25 @@ impl PrimeTester {
             .filter(|(i, &b)| b && (*i <= max as usize))
             .map(|(i, _)| i as u64)
             .collect();
+    }
+
+    /// returns all prime numbers up to max, after growing the cache to max
+    ///
+    /// ```
+    /// use project_euler_practice::prime::PrimeTester;
+    /// let mut pt = PrimeTester::new();
+    /// let primes = pt.get_primes_ord(11);
+    /// assert_eq!(primes, vec!(2, 3, 5, 7, 11))
+    /// ```
+    pub fn get_primes_ord(&mut self, max: usize) -> Vec<u64> {
+        let mut result = Vec::with_capacity(max / 2);
+        self.grow_cache_to(max);
+        for i in 2..=max {
+            if self.cache[i] {
+                result.push(i as u64);
+            }
+        }
+        return result;
     }
 }
 

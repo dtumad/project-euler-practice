@@ -1,5 +1,6 @@
 #[allow(unused_imports)]
 use project_euler_practice::util::{get_arg, get_arg_else, read_input};
+use rayon::prelude::*;
 
 // last n digits of the number
 fn last_n_digits(num: u64, n: u64) -> u64 {
@@ -19,7 +20,7 @@ fn self_power(num: u64) -> u64 {
 }
 
 fn solve(n: u64) -> u64 {
-    last_n_digits((1..=n).map(|m| self_power(m)).sum(), 10)
+    last_n_digits((1..=n).into_par_iter().map(|m| self_power(m)).sum(), 10)
 }
 
 fn main() -> () {

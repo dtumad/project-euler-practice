@@ -46,6 +46,6 @@ mod tests {
     fn cancel_test() {
         use super::is_simple_cancel as f;
         assert!(f(49, 98));
-        assert!(f(30, 50));
+        assert!(!f(30, 50));
     }
 }
