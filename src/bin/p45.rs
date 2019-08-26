@@ -48,7 +48,6 @@ impl<T: Ord + Hash + Copy> FormulaCache<T> {
 
 fn solve(i: usize) -> u64 {
     let mut pent = FormulaCache::new(Box::new(|n| n * (3 * n - 1) / 2));
-    //let mut hex = FormulaCache::new(Box::new(|n| n * (2 * n - 1)));
     (1..)
         .map(|n| n * (2 * n - 1))
         .filter(|&n| pent.contains(n)) // && hex.contains(n))

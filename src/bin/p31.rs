@@ -11,9 +11,7 @@ struct Purse {
 }
 impl Purse {
     fn zero_purse() -> Purse {
-        Purse {
-            coins: [0; 8],
-        }
+        Purse { coins: [0; 8] }
     }
     // adds one coin with the given value
     fn add_coin(&self, value: usize) -> Purse {

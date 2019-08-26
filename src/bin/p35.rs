@@ -31,8 +31,8 @@ fn is_circular_prime(n: u64, tester: &HashSet<u64>) -> bool {
     if n < 11 {
         n == 2 || n == 3 || n == 5 || n == 7
     } else {
-        has_safe_digits(n) &&
-            (0..=len(n))
+        has_safe_digits(n)
+            && (0..=len(n))
                 .map(|shift| tester.contains(&cycle_number(n, shift)))
                 .all(|x| x)
     }
@@ -44,6 +44,7 @@ fn solve(n: u64) -> usize {
         .into_par_iter()
         .filter(|&p| p % 2 != 0 && is_circular_prime(p, &pt))
         .count()
+        + 1
 }
 
 fn main() -> () {

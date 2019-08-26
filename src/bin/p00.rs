@@ -8,7 +8,7 @@ fn solve(n: u64) -> u64 {
 }
 
 fn main() -> () {
-    let result: u64 = solve(get_arg(1));
+    let result = solve(get_arg(1));
     println!("{}", result);
 }
 
