@@ -8,7 +8,6 @@ extern crate num_traits;
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::Zero;
 
-
 fn reverse(mut n: BigUint) -> BigUint {
     let mut m = Zero::zero();
     let ten = BigUint::parse_bytes(b"10", 10).unwrap();
@@ -34,10 +33,7 @@ fn is_lychrel(n: u64) -> bool {
 }
 
 fn solve(n: u64) -> u64 {
-    (1..=n)
-        .into_par_iter()
-        .filter(|&m| is_lychrel(m))
-        .count() as u64
+    (1..=n).into_par_iter().filter(|&m| is_lychrel(m)).count() as u64
 }
 
 fn main() -> () {
@@ -51,8 +47,14 @@ mod tests {
     fn reverse_test() {
         use super::reverse;
         use super::BigUint;
-        assert_eq!(reverse(BigUint::parse_bytes(b"99899", 10).unwrap()).to_string(), "99899");
-        assert_eq!(reverse(BigUint::parse_bytes(b"12345", 10).unwrap()).to_string(), "54321");
+        assert_eq!(
+            reverse(BigUint::parse_bytes(b"99899", 10).unwrap()).to_string(),
+            "99899"
+        );
+        assert_eq!(
+            reverse(BigUint::parse_bytes(b"12345", 10).unwrap()).to_string(),
+            "54321"
+        );
     }
     #[test]
     fn is_lychrel_test() {

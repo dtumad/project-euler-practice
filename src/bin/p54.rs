@@ -141,9 +141,9 @@ fn is_winner(you: Hand, other: Hand) -> bool {
         return true;
     } else if your_rank == their_rank {
         for i in 0..5 {
-            if you.cards[4-i].value > other.cards[4-i].value {
+            if you.cards[4 - i].value > other.cards[4 - i].value {
                 return true;
-            } else if you.cards[4-i].value < other.cards[4-i].value {
+            } else if you.cards[4 - i].value < other.cards[4 - i].value {
                 return false;
             }
         }
