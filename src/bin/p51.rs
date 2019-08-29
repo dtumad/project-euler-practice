@@ -50,10 +50,4 @@ mod tests {
         assert!(!digits_match(125874, 3));
         assert!(!digits_match(125875, 2));
     }
-    #[test]
-    fn solution_test() {
-        use super::solve;
-        assert_eq!(solve(1), 1);
-        assert_eq!(solve(2), 2);
-    }
 }
