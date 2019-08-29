@@ -1,6 +1,6 @@
+use project_euler_practice::prime::PrimeTester;
 #[allow(unused_imports)]
 use project_euler_practice::util::{get_arg, get_arg_else, read_input};
-use project_euler_practice::prime::PrimeTester;
 #[allow(unused_imports)]
 use rayon::prelude::*;
 
@@ -13,14 +13,14 @@ fn is_pangigital(mut n: u64) -> bool {
         n /= 10;
     }
     if digits[0] {
-        return false
+        return false;
     }
     for i in 1..=len {
         if !digits[i] {
             return false;
         }
     }
-    for i in (len+1)..=9 {
+    for i in (len + 1)..=9 {
         if digits[i] {
             return false;
         }

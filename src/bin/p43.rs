@@ -20,7 +20,7 @@ fn is_full_pangigital(mut n: u64) -> bool {
 }
 
 fn has_property(mut n: u64) -> bool {
-    for div in vec!(17,13,11,7,5,3,2).iter() {
+    for div in vec![17, 13, 11, 7, 5, 3, 2].iter() {
         let smoll = n % 1000;
         if smoll % div != 0 {
             return false;
@@ -35,7 +35,10 @@ fn solve() -> u64 {
         .into_par_iter()
         .filter(|&n| (n / 1000000) % 2 == 0)
         .filter(|&n| is_full_pangigital(n) && has_property(n))
-        .map(|n| {println!("{}", n); n})
+        .map(|n| {
+            println!("{}", n);
+            n
+        })
         .sum()
 }
 

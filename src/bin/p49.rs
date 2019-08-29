@@ -1,6 +1,6 @@
+use project_euler_practice::prime::PrimeTester;
 #[allow(unused_imports)]
 use project_euler_practice::util::{get_arg, get_arg_else, read_input};
-use project_euler_practice::prime::PrimeTester;
 #[allow(unused_imports)]
 use rayon::prelude::*;
 
@@ -33,7 +33,7 @@ fn solve(mut n: u64, init_max: u64, step_max: u64) -> (u64, u64, u64) {
             }
         }
     }
-    return (0,0,0);
+    return (0, 0, 0);
 }
 
 fn main() -> () {

@@ -4,7 +4,7 @@ use project_euler_practice::util::{get_arg, get_arg_else, read_input};
 use rayon::prelude::*;
 
 fn count_integer_triangles(p: u64) -> u8 {
-    let max_side = p/2;
+    let max_side = p / 2;
     let mut count = 0;
     for a in 1..=max_side {
         let max_b = (p - a) / 2;
@@ -23,7 +23,8 @@ fn solve(n: u64) -> u64 {
         .filter(|&m| m % 2 == 0)
         .map(|m| (count_integer_triangles(m), m))
         .max()
-        .unwrap().1
+        .unwrap()
+        .1
 }
 
 fn main() -> () {
