@@ -6,7 +6,7 @@ use rayon::prelude::*;
 extern crate num_bigint;
 extern crate num_traits;
 use num_bigint::{BigUint, ToBigUint};
-use num_traits::{Zero, Pow  };
+use num_traits::{Zero, Pow};
 
 fn count_digits(a: u64, b: u64) -> u64 {
     let mut n = a.to_biguint().unwrap().pow(b);
