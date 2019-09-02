@@ -229,3 +229,28 @@ pub fn count_distinct_prime_divisors(mut n: u64) -> u64 {
     }
     return result;
 }
+
+/// Determine if the two numbers are relatively prime.
+/// The first argument must be the smaller of the two numbers.
+///
+/// ```
+/// use project_euler_practice::prime::is_relatively_prime as f;
+/// assert!(f(1,4));
+/// assert!(f(1,5012));
+/// assert!(f(5,6));
+/// assert!(f(3,8));
+/// assert!(!f(6,12));
+/// assert!(!f(6,9));
+/// assert!(!f(2506,5012));
+/// ```
+pub fn is_relatively_prime(small: u64, large: u64) -> bool {
+    if small % 2 == 0 && large % 2 == 0 {
+        return false;
+    }
+    for i in (3..=small).step_by(2) {
+        if small % i == 0 && large % i == 0 {
+            return false;
+        }
+    }
+    return true;
+}
