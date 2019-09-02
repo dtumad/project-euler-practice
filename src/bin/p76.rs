@@ -31,7 +31,7 @@ mod tests {
     #[test]
     fn solution_test() {
         use super::solve;
+        assert_eq!(solve(5), 6);
         assert_eq!(solve(1), 1);
-        assert_eq!(solve(2), 2);
     }
 }
