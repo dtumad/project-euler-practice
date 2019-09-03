@@ -6,7 +6,7 @@ use rayon::prelude::*;
 extern crate num_bigint;
 extern crate num_traits;
 use num_bigint::{BigUint, ToBigUint};
-use num_traits::{Zero, Pow, ToPrimitive};
+use num_traits::{Pow, ToPrimitive, Zero};
 
 fn digit_sum(a: u64, b: u64) -> u64 {
     let mut n = a.to_biguint().unwrap().pow(b);
@@ -21,8 +21,8 @@ fn digit_sum(a: u64, b: u64) -> u64 {
 
 fn solve(n: u64) -> u64 {
     let mut max_sum = 0;
-    for a in (n/2)..n {
-        for b in (n/2)..n {
+    for a in (n / 2)..n {
+        for b in (n / 2)..n {
             max_sum = std::cmp::max(max_sum, digit_sum(a, b));
         }
     }
@@ -39,7 +39,7 @@ mod tests {
     #[test]
     fn digit_sum_test() {
         use super::digit_sum;
-        assert_eq!(digit_sum(10,10), 1);
-        assert_eq!(digit_sum(2,4), 7);
+        assert_eq!(digit_sum(10, 10), 1);
+        assert_eq!(digit_sum(2, 4), 7);
     }
 }

@@ -6,15 +6,14 @@ use rayon::prelude::*;
 fn solve(mut n: usize) -> u64 {
     n += 1;
     // ways_to_add[i][j] is ways to add to i using values up to j
-    let mut ways_to_add: Vec<Vec<u64>> = vec![vec!(0; n); n];
-    ways_to_add[0] = vec!(1; n);
-    ways_to_add[1] = vec!(1; n);
+    let def: Vec<u64> = vec![0; n];
+    let mut ways_to_add: Vec<Vec<u64>> = vec![def; n];
+    ways_to_add[0] = vec![1; n];
+    ways_to_add[1] = vec![1; n];
     for i in 2..n {
         for j in 1..n {
             ways_to_add[i][j] = (1..=std::cmp::min(i, j))
-                .map(|m| {
-                    ways_to_add[i - m][m]
-                })
+                .map(|m| ways_to_add[i - m][m])
                 .sum()
         }
     }
