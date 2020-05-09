@@ -8,11 +8,11 @@ struct FormulaCache<T: Ord + Hash + Copy> {
     cache: HashSet<T>,
     last_in: u64,
     last_out: T,
-    formula: Box<Fn(u64) -> T>,
+    formula: Box<dyn Fn(u64) -> T>,
 }
 
 impl<T: Ord + Hash + Copy> FormulaCache<T> {
-    fn new(formula: Box<Fn(u64) -> T>) -> FormulaCache<T> {
+    fn new(formula: Box<dyn Fn(u64) -> T>) -> FormulaCache<T> {
         let mut hs = HashSet::new();
         // initialize with some values
         let mut o = formula(1);

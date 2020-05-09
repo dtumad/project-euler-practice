@@ -153,7 +153,7 @@ pub fn prime_factorize(n: u64) -> Vec<u8> {
     return prime_factorization;
 }
 
-/// gets a hash set containing all the divisors about n
+/// gets a hash set containing all the proper divisors of n
 /// doesn't guaruntee anything about the ordering
 ///
 /// ```
@@ -165,6 +165,8 @@ pub fn prime_factorize(n: u64) -> Vec<u8> {
 ///         assert!(divs.contains(&i));
 ///     }
 /// }
+/// assert_eq!(f(49).len(), 2);
+/// assert_eq!(f(36).len(), 8);
 /// ```
 pub fn get_divisors(n: u64) -> HashSet<u64> {
     let mut divisors = HashSet::with_capacity(get_num_divisors(n) as usize);
@@ -251,6 +253,33 @@ pub fn is_relatively_prime(small: u64, large: u64) -> bool {
         if small % i == 0 && large % i == 0 {
             return false;
         }
+    }
+    return true;
+}
+
+
+/// Determine if a given number is square free or not
+///
+/// ```
+/// use project_euler_practice::prime::is_squarefree as f;
+/// assert!(f(1));
+/// assert!(f(2));
+/// assert!(f(6));
+/// assert!(f(10));
+/// assert!(!f(4));
+/// assert!(!f(36));
+/// assert!(!f(500));
+/// ```
+pub fn is_squarefree(mut n: u64) -> bool {
+    let mut d = 2;
+    while n > 1 {
+	if n % d == 0 {
+	    n = n / d;
+	    if n % d == 0 {
+		return false;
+	    }
+	}
+	d += 1;
     }
     return true;
 }
